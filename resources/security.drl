@@ -1,0 +1,14 @@
+package Permissions;
+
+import java.security.Principal;
+
+import org.jboss.seam.security.PermissionCheck;
+import org.jboss.seam.security.Role;
+
+rule AdminCanWriteBlog
+when
+  c: PermissionCheck(name == "blogEntryAction", action == "init")
+  Role(name == "admin" )
+then
+  c.grant();
+end

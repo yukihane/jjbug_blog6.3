@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-diagram name="kairan" width="403" height="332">
+  <node name="ブログを書く" x="104" y="47" width="140" height="40">
+    <transition>
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="課長承認" x="105" y="122" width="140" height="40">
+    <transition name="">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="終了" x="106" y="204" width="140" height="40"/>
+</process-diagram>

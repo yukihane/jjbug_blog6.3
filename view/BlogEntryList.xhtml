@@ -1,0 +1,49 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	template="template.xhtml">
+	<ui:define name="body">
+		<h:messages globalOnly="true" />
+[<s:link value="新規" action="#{blogEntryAction.init}" propagation="none" />]
+    <h:dataTable id="blogEntryList" var="entry" value="#{blogEntries}"
+			rendered="#{blogEntries.rowCount>0}">
+			<h:column>
+				<h:panelGrid columns="1" border="1" width="400">
+					<h:panelGroup>
+						<h:outputText value="#{entry.blogDate}">
+							<f:convertDateTime pattern="yyyy/MM/dd" timeZone="GMT+9"/>
+						</h:outputText>
+                [<h:outputText value="#{entry.category}" />]
+            </h:panelGroup>
+					<s:formattedText value="#{entry.blogEntry}" />
+					<h:panelGroup>
+            [<s:link id="editBlogEntry" value="編集"
+							action="#{blogEntryAction.init(entry)}" />] 
+            [<s:link id="delBlogEntry" value="削除"
+							action="#{blogListAction.deleteBlogEntry}" />]
+					[<s:link id="commentadd" value="コメント登録"
+							action="#{commentAction.init(entry)}" />] 
+            		[<s:link id="delComment" value="コメント削除"
+							action="#{blogListAction.deleteComment(entry)}" />]		
+				</h:panelGroup>
+				</h:panelGrid>
+				<h:panelGrid columns="1" border="1" width="400">
+					<h:dataTable value="#{entry.comments}" var="comment"
+						rendered="#{not empty entry.comments}">
+						<h:column>
+							<h:panelGroup>
+								<h:outputText value="●" />
+								<h:outputText value="#{comment.commentater}" />
+								<h:outputText value="さん ： " />
+								<h:outputText value="#{comment.comment}" />
+							</h:panelGroup>
+						</h:column>
+					</h:dataTable>
+				</h:panelGrid>
+			</h:column>
+		</h:dataTable>
+	</ui:define>
+</ui:composition>

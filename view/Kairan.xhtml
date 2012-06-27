@@ -1,0 +1,45 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="template.xhtml">
+                       
+<ui:define name="body">
+
+　　　　<h1>回覧</h1>
+
+      <h:form id="kairanForm">
+      <div>
+         <h:outputText value="回覧はありません。" rendered="#{empty taskInstancePriorityList}"/>
+         <h:dataTable value="#{taskInstancePriorityList}" var="task" rendered="#{not empty taskInstancePriorityList}">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="エントリ"/>
+                </f:facet>
+                    <h:inputTextarea id="taskDesc"
+                                     cols="40"
+                                     rows="7"
+                                     maxlength="100"
+                                     value="#{task.description}"/><br/>
+                <s:button action="#{kairan.done}" taskInstance="#{task}" value="確認しました"/>
+
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="作成日"/>
+                </f:facet>
+                <h:outputText value="#{task.taskMgmtInstance.processInstance.start}">
+                    <s:convertDateTime type="date"/>
+                </h:outputText>
+            </h:column>
+         </h:dataTable>
+      </div>
+      </h:form>
+
+</ui:define>
+
+</ui:composition>

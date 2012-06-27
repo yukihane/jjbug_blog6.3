@@ -1,0 +1,50 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="https://ajax4jsf.dev.java.net/ajax"
+	template="template.xhtml">
+	<ui:define name="body">
+		<h:messages globalOnly="true" />
+		<h:form id="blogEntryForm">
+			<f:facet name="beforeInvalidField">
+				<h:graphicImage styleClass="errorImg" value="error.GIF" />
+			</f:facet>
+			<f:facet name="afterInvalidField">
+				<s:message styleClass="errorMsg" />
+			</f:facet>
+			<f:facet name="aroundInvalidField">
+				<s:div styleClass="error" />
+			</f:facet>
+			<s:validateAll>
+				<h:panelGrid columns="2" border="1">
+					<f:facet name="header">
+						<h:outputText value="ブログ登録" />
+					</f:facet>
+					<h:outputText value="日付" />
+					<s:decorate>
+						<rich:calendar id="blogDate"
+				 			value="#{blogEntry.blogDate}"
+			 				event="onblur"
+							datePattern="yyyy/MM/dd"
+							required="true" />
+					</s:decorate>
+					<h:outputText value="カテゴリ" />
+					<s:decorate>
+						<h:inputText id="category" value="#{blogEntry.category}" required="true"/>
+					</s:decorate>
+					<h:outputText value="内容" />
+					<s:decorate>
+						<h:inputTextarea id="blogEntry" cols="50" rows="3"
+							required="true" maxlength="100" value="#{blogEntry.blogEntry}" />
+					</s:decorate>
+				</h:panelGrid>
+				<h:commandButton id="save" value="確認"
+					action="#{blogEntryAction.confirm}"/>
+			</s:validateAll>
+		</h:form>
+	</ui:define>
+</ui:composition>

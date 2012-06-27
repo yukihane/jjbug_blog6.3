@@ -1,0 +1,21 @@
+<process-definition 
+	name="kairan"
+	xmlns="urn:jbpm.org:jpdl-3.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:jbpm.org:jpdl-3.1 http://jbpm.org/xsd/jpdl-3.1.xsd"
+	>
+
+   <start-state name="ブログを書く">
+      <transition to="課長承認"/>
+   </start-state>
+   
+   <task-node name="課長承認">
+      <task name="承認" description="#{blogEntry.blogEntry}">
+         <assignment actor-id="kacho"/>
+      </task>
+      <transition name="" to="終了"></transition>
+   </task-node>
+
+   <end-state name="終了"/>
+
+</process-definition>
